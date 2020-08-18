@@ -2,7 +2,7 @@
 
 Création d’emplois du temps pour le collège et le lycée.
 
-[Utilisation en ligne](https://ybcsmh.pythonanywhere.com)
+[Application OpenEDT  en ligne](https://ybcsmh.pythonanywhere.com)
 
 La création de votre emploi du temps se fait en 3 étapes:
 
