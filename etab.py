@@ -439,7 +439,7 @@ class Etab:
         
         
 
-        df.to_excel(self.name + ".xlsx", index=False)
+        df.to_excel(self.name, index=False)
 
         return df
 
