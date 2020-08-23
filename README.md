@@ -4,7 +4,7 @@ Création automatique d’emplois du temps pour le collège et le lycée.
 
 [Application OpenEDT  en ligne](https://ybcsmh.pythonanywhere.com)
 
-La création de votre emploi du temps se fait en 3 étapes:
+La création de vos emplois du temps se fait en 3 étapes:
 
 - 1: Préconfigurer votre établissement pour obtenir votre fichier etab.xlsx
 
