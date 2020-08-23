@@ -1,6 +1,6 @@
 # OpenEDT
 
-Création d’emplois du temps pour le collège et le lycée.
+Création automatique d’emplois du temps pour le collège et le lycée.
 
 [Application OpenEDT  en ligne](https://ybcsmh.pythonanywhere.com)
 
