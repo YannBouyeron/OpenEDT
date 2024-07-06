@@ -2,7 +2,7 @@
 
 Création automatique d’emplois du temps pour le collège et le lycée.
 
-[Application OpenEDT  en ligne](https://ybcsmh.pythonanywhere.com)
+[Application OpenEDT  en ligne](https://openedt.oversas.org)
 
 La création de vos emplois du temps se fait en 3 étapes:
 
@@ -43,7 +43,7 @@ Pour tester OpenEDT sans configurer tout un etablissement, vous pouvez utiliser 
 
 - Téléchargez le fichier [Etab-Temoin-28classes.xlsx](https://raw.githubusercontent.com/YannBouyeron/OpenEDT/master/Etab-Temoin-28classes.xlsx) 
 
-- Accedez à l'application [OpenEDT en ligne](https://ybcsmh.pythonanywhere.com)
+- Accedez à l'application [OpenEDT en ligne](https://openedt.oversas.org)
 
 - Passez directement à l'Etape 3 de l'application pour charger le fichier Etab-Temoin-28classes.xlsx dans l'application
 
