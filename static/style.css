@@ -1,0 +1,169 @@
+		.grilleD {
+
+
+				display : grid;
+
+
+				grid-gap: 10px;
+				grid-template-columns: 1fr;
+				grid-template-rows: 1fr 4fr;
+				grid-template-areas: "a" 											 						  "b";
+
+
+				font-family: Palatino, URW Palladio L, serif;
+				text-align:center;
+
+
+				}
+
+
+				.enteteD {
+					grid-area:a;
+					font-size:1.2em;
+					background-color: #FAFAFA;
+					border-radius: 5px;
+
+
+
+					}
+
+
+				.downD {
+					grid-area:b;
+					font-size:1.2em;
+					background-color: #FAFAFA;
+					border-radius: 5px;
+
+
+					}
+
+
+
+
+			.grille {
+
+
+				display : grid;
+
+				grid-gap: 10px;
+				grid-template-columns: 1fr;
+				grid-template-rows: 1fr 2fr 2fr 2fr 0.5fr;
+				grid-template-areas: "a"
+														 "b"
+														 "c"
+														 "d"
+
+"e";
+
+
+
+				font-family: Palatino, URW Palladio L, serif;
+				text-align:center;
+				vertical-align: middle;
+
+
+				}
+
+
+				.entete {
+					grid-area:a;
+					font-size:1.2em;
+					background-color: #FAFAFA;
+					border-radius: 5px;
+
+					}
+
+
+				.etap1 {
+					grid-area:b;
+					font-size:1.2em;
+					background-color: #FAFAFA;
+					border-radius: 5px;
+
+
+					}
+
+
+				.etap2 {
+					grid-area:c;
+					font-size:1.2em;
+					background-color: #FAFAFA;
+					border-radius: 5px;
+
+					}
+
+
+
+				.etap3 {
+					grid-area:d;
+					font-size:1.2em;
+					background-color: #FAFAFA;
+					border-radius: 5px;
+
+
+					}
+
+                                 .footer {
+
+                                        grid-area:e;
+					font-size:1em;
+					background-color: #FAFAFA;
+					border-radius: 5px;
+                                        padding-top: 5px;
+
+                                        }
+
+
+
+
+
+			.grilleC {
+
+
+				display : grid;
+
+				grid-gap: 10px;
+				grid-template-columns: 1fr;
+				grid-template-rows: 1fr 10fr;
+				grid-template-areas: "a"
+														 "b";
+
+
+
+
+
+				font-family: Palatino, URW Palladio L, serif;
+				text-align:center;
+
+
+				}
+
+
+				.header {
+					grid-area:a;
+					font-size:1.2em;
+					background-color: #FAFAFA;
+					border-radius: 5px;
+
+
+					}
+
+				.step1 {
+					grid-area:b;
+					font-size:1em;
+					background-color: #FAFAFA;
+					border-radius: 5px;
+
+					}
+
+
+
+
+
+
+				form#myform label { display:inline-block; width:270px; }
+				form#myform input { display:inline-block; }
+
+
+a {color: black;}
+

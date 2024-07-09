@@ -1,0 +1,89 @@
+<!doctype html>
+
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+
+			<style type="text/css">
+
+
+	   		</style>
+
+			<link rel="stylesheet" href="./static/style.css" type="text/css" />
+
+		<title>OpenEDT</title>
+
+	</head>
+
+
+
+	<body>
+
+	  <div class=grille>
+
+    <div class=entete>
+
+    <h1>OpenEDT</h1>
+
+
+    </div>
+
+    <div class=etap1>
+
+    </br/>
+
+    <h3>Étape 1: Préconfigurez votre etablissement pour obtenir votre fichier etab.xlsx</h3>
+
+    <form action = "/createtab" method = "get" accept-charset="ISO-8859-1">
+    <input type = "submit" name = "createtab" value = "Préconfigurer" class = ""/>
+    </form>
+
+    </div>
+
+    <div class=etap2>
+
+    </br/>
+
+    <h3> Étape 2: Suivez le tutoriel pour compléter votre fichier etab.xlsx</h3>
+
+    <form action = "/static/OpenEDT tutoriel.pdf" method = "get" accept-charset="ISO-8859-1">
+    <input type = "submit" name = "tuto" value = "Tutoriel" class = ""/>
+    </form>
+
+
+    </div>
+
+
+
+    <div class=etap3>
+
+    <h3> Étape 3: Chargez votre fichier etab.xlsx pour créer votre EDT.</h3>
+
+    <form action="/analyse" method="post" enctype="multipart/form-data">
+    <p>Sélectionnez votre fichier etab.xlsx:</p>
+    <input type="file" name="upload" />
+    <input type="submit" name="analyse" value="Analyser" />
+    <input type="submit" name="creat" value="Créer l’EDT" />
+    </form>
+
+    </div>
+
+
+    <div class=footer>
+
+    <a href="https://github.com/YannBouyeron/OpenEDT">Github</a>
+
+    </div>
+
+
+
+
+
+
+	  </div>
+
+	</body>
+
+</html>

@@ -1,0 +1,106 @@
+<!doctype html>
+
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+
+		<title>OpenEDT</title>
+
+
+		<style type="text/css">
+
+		</style>
+
+		<link rel="stylesheet" href="./static/style.css" type="text/css" />
+
+	</head>
+
+
+
+	<body>
+
+
+	<div class=grilleC>
+
+	<div class=header>
+
+		<h1>OpenEDT</h1>
+
+	</div>
+
+
+	<div class=step1>
+
+	<h3>Préconfigurez votre établissement.</h3>
+
+	<form action="/createtab" id="myform" accept-charset="ISO-8859-1" method="post">
+
+
+       <label for=nom>Nom de l’établissement:</label>
+       <input name = "nom" id = "nom" type = "text" /></br></br>
+
+
+	<h4>Sélectionnez vos classes:</h4>	<p></p>
+
+	<label for=Sixième>Sixième:</label>
+	<input name = "Sixième" id = "Sixième" type = "number" value=0 /></br></br>
+
+	<label for=Cinquième>Cinquième:</label>
+	<input name = "Cinquième" id = "Cinquième" type = "number" value=0 /></br></br>
+
+	<label for=Quatrième>Quatrième:</label>
+	<input name = "Quatrième" id = "Quatrième" type = "number" value=0 /></br></br>
+
+	<label for=Troisième>Troisième:</label>
+	<input name = "Troisième" id = "Troisième" type = "number" value=0 /></br></br>
+
+	<label for=Seconde>Seconde:</label>
+	<input name = "Seconde" id = "Seconde" type = "number" value=0 /></br></br>
+
+	<label for=Première>Première:</label>
+	<input name = "Première" id = "Première" type = "number" value=0 /></br></br>
+
+	<label for=Terminale>Terminale:</label>
+	<input name = "Terminale" id = "Terminale" type = "number" value=0 /></br></br>
+
+
+
+	<h4>Sélectionnez vos spécificités horaires:</h4><p></p>
+
+
+	<label for="samedi">Samedi matin libre:</label><input type="checkbox" name="samedi" value=1 id="samedi" /><br/><br/>
+
+	<label for="mercredi">Mercredi matin libre:</label><input type="checkbox" name="mercredi" value=1 id="mercredi" /><br/><br/>
+
+	<p></p>
+
+	<label for="onsenfou">4 unités de cours le matin:</label><input type="checkbox" name="onsenfou" value=1 id="onsenfou" /><br/><br/>
+
+	<label for="m1">3 unités de cours le matin:</label><input type="checkbox" name="m1" value=1 id="m1" /><br/><br/>
+
+	<p></p>
+
+	<label for="onsenfou2">4 unités de cours l’après-midi:</label><input type="checkbox" name="onsenfou2" value=1 id="onsenfou2" /><br/><br/>
+
+	<label for="a4">3 unités de cours l’après-midi:</label><input type="checkbox" name="a4" value=1 id="a4" /><br/><br/>
+
+	<label for="a3">2 unités de cours l’après-midi:</label><input type="checkbox" name="a3" value=1 id="a3" /><br/><br/>
+
+
+	<p></p><p></p>
+
+	<input value="Envoyer" type="submit" />
+
+	<p></p><p></p>
+
+	</form>
+
+	</div>
+
+	</div>
+
+	</body>
+
+</html>

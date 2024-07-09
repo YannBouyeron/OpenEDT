@@ -54,7 +54,7 @@ class Etab:
 
             else:
 
-                # on remplace tous les NaN de la colonne ph par "[0,0,0]"
+                # on remplace tous les NaN des la colonne ph par "[0,0,0]"
         
                 df["ph"]= df["ph"].fillna("[0,0,0]")
 
@@ -84,7 +84,7 @@ class Etab:
 
     def service(self, prof):
 
-        """retourne le service hebdo en heures d'un prof , et son DataFrame"""
+        """retourne le service hebdo en heure d'un prof , et son DataFrame"""
 
         p = self.df.loc[self.df.prof == prof]
 
@@ -237,7 +237,7 @@ class Etab:
     def show_reg(self):
 
         """
-        Affiche tous les regroupements.
+        Affiche tous les regrouppements.
         """
 
         r = self.get_reg()
@@ -271,7 +271,7 @@ class Etab:
     def insert_row(self, r, i):
 
         """
-        Insert une ligne (au format dataframe) r à l' index i, puis decale les regroupements supérieurs à l'index  i, puis ré indexe.
+        Insert une ligne (au format dataframe) r à l' index i, puis decale les regroupements supérieur à l'index  i, puis ré indexe.
         """
 
         a = self.df.iloc[:i]
@@ -333,7 +333,7 @@ class Etab:
     def add_random_prof(self, matiere, *name):
 
         """
-        Ajoute des profs au hasard...comme à l’EN
+        Ajoute des profs au hasard...
         """
 
         lc = list(set(self.df.classe.tolist())) 
@@ -439,7 +439,7 @@ class Etab:
         
         
 
-        df.to_excel(self.name, index=False)
+        df.to_excel(self.name + ".xlsx", index=False)
 
         return df
 
@@ -546,7 +546,7 @@ class Etab:
         df.id = range(len(df))
 
 
-        # on remplace tous les NaN de la colonne ph par "[0,0,0]"
+        # on remplace tous les NaN des la colonne ph par "[0,0,0]"
         
         df["ph"]= df["ph"].fillna("[0,0,0]")
 

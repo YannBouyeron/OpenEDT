@@ -4,14 +4,18 @@ import json
 import time
 from openpyxl import load_workbook
 from openpyxl import Workbook
+from openpyxl.utils import get_column_letter
 from openpyxl.utils.dataframe import dataframe_to_rows
 import os
+import logging
 
+logging.basicConfig(filename="edt.log", level=logging.DEBUG,\
+      format='%(asctime)s -- %(name)s -- %(levelname)s -- %(message)s')
 
 
 # pour afficher les DataFrame en entier:
 
-pd.set_option("max_rows", None)
+pd.set_option("display.max_rows", None)
 #pd.set_option("max_columns", None)
 
 # pour reset options:
@@ -26,7 +30,7 @@ def opener(xlsx):
     
     c = pd.read_excel(xlsx)
 
-    # on remplace tous les NaN de la colonne ph par "[0,0,0]"
+    # on remplace tous les NaN des la colonne ph par "[0,0,0]"
         
     c["ph"]= c["ph"].fillna("[0,0,0]")
 
@@ -109,7 +113,7 @@ def prof_is_dispo2(c, n, *ph):
 def hmat(c, classe, matiere, jour):
 
     """
-    Retourne le nombre d’heures d’une matiere donnée dans une classe donnée pour un jour donné
+    Retourne le nombre d’heure d’une matiere donnée dans une classe donnée pour un jour donné
     jour (int): 0 pour lundi, 1 pour mardi...
     """
 
@@ -172,7 +176,7 @@ def salle_is_dispo(c, n, *ph):
 
 def regc_is_dispo(c, regc, *ph):
 
-    """regc est une liste de classes en regroupement"""
+    """regc est une liste de classe en regroupement"""
 
     if type(regc) != type([]):
 
@@ -189,7 +193,7 @@ def regc_is_dispo(c, regc, *ph):
 
 def regp_is_dispo(c, regp, *ph):
 
-    """regp est une liste de profs en regroupement"""
+    """regp est une liste de prof en regroupement"""
 
     if type(regp) != type([]):
 
@@ -206,7 +210,7 @@ def regp_is_dispo(c, regp, *ph):
 
 def regs_is_dispo(c, regs, *ph):
 
-    """regp est une liste de salles en regroupement"""
+    """regp est une liste de salle en regroupement"""
 
     if type(regs) != type([]):
 
@@ -226,7 +230,7 @@ def regs_is_dispo(c, regs, *ph):
 
 def get_random_block(ut, ut2placed = True):
 
-    """get block seances de durée ut au hasard.
+    """choisi des block seances de durée ut au hasard.
     si ut2placed == True (default): les block de durée 2 ne sont pas placés au milieu des demie journées"""
 
     bh = list(block_horraires(ut))
@@ -273,8 +277,7 @@ def get_reg(c):
 def testone(c, maxh=2):
 
     """
-    teste un edt. 
-    maxh est le maximum d’heure par matiere et par jour, pour eviter d’avoir 3 x 1 h de Fr dans la meme journée par exemple
+    teste un edt. maxh est le maximum d’heure par matiere et par jour, pour eviter d’avoir 3 x 1 h de Fr dans la meme journée par exemple
     """
 
 
@@ -294,7 +297,7 @@ def testone(c, maxh=2):
 
         for j in random_block:
 
-            # on verifie qu’il n’y a pas déjà davantage d’heures de la matiere dans la journée du random_block
+            # on verifie qu’il n’y a pas déjà davantage d’heure de la matiere dans la journée du random_block
 
             jour = (j[0]//100) - 1
 
@@ -302,7 +305,7 @@ def testone(c, maxh=2):
 
                 continue
 
-            # recherche des classes en regroupement
+            # recherche des classes en regrouppement
 
             regc = c.loc[(c.regroup == seance.id), "classe"]
             
@@ -312,7 +315,7 @@ def testone(c, maxh=2):
 
             regc = list(set(regc))
 
-            # recherche des profs en regroupement
+            # recherche des prof en regrouppement
 
             regp = c.loc[(c.regroup == seance.id), "prof"]
 
@@ -322,7 +325,7 @@ def testone(c, maxh=2):
 
             regp = list(set(regp))
 
-            # recherche des salles en regroupement
+            # recherche des salle en regrouppement
 
             regs = c.loc[(c.regroup == seance.id), "salle"]
 
@@ -366,7 +369,7 @@ def testone(c, maxh=2):
 
                 for j in random_block:
 
-                    # on verifie qu’il n’y a pas déjà davantage d’heures de la matiere dans la journée du random_block
+                    # on verifie qu’il n’y a pas déjà davantage d’heure de la matiere dans la journée du random_block
 
                     jour = (j[0]//100) - 1
 
@@ -384,7 +387,7 @@ def testone(c, maxh=2):
              
 
                 if c.loc[(c.id == seance.id), "ph"].values == "[0,0,0]":
-                    print(c.loc[(c.id == seance.id)])
+                    
                     break
 
 
@@ -408,7 +411,6 @@ def xlmaker(n):
     for s in wbp.sheet_names:
 
         ws = wb.create_sheet(title=s)
-    
 
         df = pd.read_excel(wbp, s)
 
@@ -419,12 +421,8 @@ def xlmaker(n):
             ws.append(row)
 
         ws.insert_rows(6) # on insere une ligne pour la pause du midi
-
-
-
-
     
-        for c in [1,2,3,4,5,6]: # on parse les jours sur le df
+        for c in [1,2,3,4,5,6]: # on parse les 3 premieres heurs du matin et de l'ap sur le df
        
             for r in [0,4]: # on traite les block de 4 heures
 
@@ -437,7 +435,6 @@ def xlmaker(n):
                     if r == 4: # decalage de 3 sur les lignes et de 1 sur les colonne ( a cause de la ligne du midi insérée)
 
                         ws.merge_cells(start_row=r+1+1+1, start_column=c+1, end_row=r+3+1+1+1, end_column=c+1)
-
 
             for r in [0,1,4,5]: # on traite les block de 3 qui ne sont pas inclus dans les block de 4, on evite les depassements (if elif)
             
@@ -460,7 +457,6 @@ def xlmaker(n):
                     if r in [4,5]:
 
                         ws.merge_cells(start_row=r+1+1+1, start_column=c+1, end_row=r+2+1+1+1, end_column=c+1)
-
    
             for r in [0,1,2,4,5,6]: # on traite les block de 2 non inclus dans les block de 3, on evite les depassements (if elif)
 
@@ -473,7 +469,6 @@ def xlmaker(n):
                     if r in [4,5]:
 
                         ws.merge_cells(start_row=r+1+1+1, start_column=c+1, end_row=r+1+1+1+1, end_column=c+1)
-
                
                 elif df.iat[r,c] == df.iat[r+1, c]:
 
@@ -485,25 +480,23 @@ def xlmaker(n):
 
                         ws.merge_cells(start_row=r+1+1+1, start_column=c+1, end_row=r+1+1+1+1, end_column=c+1)
 
-
         ws["A1"] = ""
 
         ws.delete_rows(11)
-    
-
 
         # on fait l'alignement vert et hor de chaque cellule
 
         for col in ws.columns:
+            
+            col_letter = get_column_letter(col[0].column)
+            
+            ws.column_dimensions[col_letter].width = 20  # ajustement column size
 
-            ws.column_dimensions[col[0].column].width = 20 # ajustement column size
-        
             for cell in col:
             
                 alignment_obj = cell.alignment.copy(horizontal='center', vertical='center')
             
                 cell.alignment = alignment_obj
-
 
     wb.save("etab/{0}_EDT.xlsx".format(n))
 
@@ -526,9 +519,6 @@ def testx(xlsx, n="mon_etab",  mh=2):
         c = original.copy()
 
         c = testone(c, maxh=mh)
-
-    print(c)
-
     
     t2 = time.time()
 
@@ -547,7 +537,7 @@ def testx(xlsx, n="mon_etab",  mh=2):
         if type(i) != type("str"):
             lc.remove(i)
     
-    # creation des emplois du temps vierges pour chaque classe
+    # creation des emplois du temps vierge pour chaque classe
 
     ent = {}
 
@@ -560,8 +550,7 @@ def testx(xlsx, n="mon_etab",  mh=2):
         df.index = ["11", "12", "13", "14", "21", "22", "23", "24"]
 
         ent[i] = df
-
-
+    
     for i in range(len(c)):
     
         s = c.iloc[i]
@@ -595,7 +584,7 @@ def testx(xlsx, n="mon_etab",  mh=2):
     except:
         pass
 
-    # nettoyage de la liste prof pour enlever les nan dues aux contraintes classes ajoutées
+    #nettoyage de la liste prof pour enlever les nan dues aux contraintes classes ajoutées
     for i in lp:
         if type(i) != type("str"):
             lp.remove(i)
@@ -652,9 +641,7 @@ def testx(xlsx, n="mon_etab",  mh=2):
 
         ent[i].index = ["M1", "M2", "M3", "M4", "A1", "A2", "A3", "A4"]
 
-      
-
-    # creation du html
+    # creation du html et publication sur ipfs infura
 
     ENT = ""
 
@@ -688,15 +675,10 @@ def testx(xlsx, n="mon_etab",  mh=2):
    
     ENT = ENT.replace("\\n", "</br>")
  
-   
-      
-
-
 
     # creation du workbook excel
 
     with pd.ExcelWriter('etab/{0}-output.xlsx'.format(n)) as writer:  
-
        
         for i in ent.keys():
             
@@ -709,8 +691,6 @@ def testx(xlsx, n="mon_etab",  mh=2):
             df = entp[j]
 
             df.to_excel(writer, sheet_name=j)
-
-
 
     # modification du workbook avec openpyxl
     
