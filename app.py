@@ -5,25 +5,17 @@ from edt import testx
 import zipfile
 import random
 
-
 app = Bottle()
-
 
 @app.route('/static/<filepath:path>')
 def send_static(filepath):
 
     return static_file(filepath, root='./static/')
 
-
-
-
 @app.route('/server_static/<filepath:path>')
 def server_static(filepath):
 
     return static_file(filepath, root='./etab/')
-
-
-
 
 @app.route('/')
 def index():
@@ -33,7 +25,6 @@ def index():
     response.set_cookie("edt", '' ,secret='hgcghgfygfytfftyf', expires=0)
 
     return template("index.html")
-
 
 @app.post('/analyse')
 def analyse():
@@ -73,10 +64,8 @@ def analyse():
 
         return h
 
-
 @app.post('/createdt')
 def createdt():
-
 
     # on essai de recuperer le cookies , si il est présent c’est que la page a ete rechargee et il n’est pas necessaire de régénerer un new edt
 
@@ -100,9 +89,7 @@ def createdt():
 	    """.format(n)
 
         return template("edt.html", excel=excel, ht=ht)
-
-
-
+	    
     # si le cookie n’est pas présent c’est que la route est appelée depuis l’index alors on upload et on genere un edt
 
     upload  = request.files.get('upload')
@@ -133,13 +120,9 @@ def createdt():
     # on save le df des seances de l’etablissement retourné complété par testx, avec les valeur dans regroup
     df = x[0]
     df.to_excel("etab/{0}.xlsx".format(n), index=False)
-
-
-    # !!!!!!!!!!!!!!!!!!!!!
-    # !!!!!!!!!!!!!!!!!!!!!
-
+	
     # on réimporte ce meme fichier dans un objet Etab de etab.py
-    e = Etab("etab/{0}.xlsx".format(n)) # jai ajouter le .xlsx ??
+    e = Etab("etab/{0}.xlsx".format(n)) 
 
     # on le re save , mais cette fois avec la methode save de l’objet Etab, ce qui permet de remplacer les valeurs de regroup par des formules
     e.save()
@@ -171,14 +154,10 @@ def createdt():
 
     return template("edt.html", excel=excel, ht=x[3])
 
-
-
 @app.get('/createtab')
 def createtab():
 
     return template("createtab.html")
-
-
 
 @app.post('/createtab')
 def createtab():
@@ -200,7 +179,6 @@ def createtab():
     a4 = request.forms.get('a4')
 
     d = {"sixième":int(six), "cinquième":int(cin), "quatrième":int(qua), "troisième":int(tro), "seconde":int(sec), "première":int(pre), "terminale":int(ter)}
-
 
     if sam == "1":
         d["samedi"]=True
@@ -236,6 +214,4 @@ def createtab():
     response.status = 303
     response.set_header('Location', '/server_static/{0}.zip'.format(nom))
 
-
 app.run(host='127.0.0.1', port=27200, reload=True, debug=True)
-
