@@ -9,9 +9,8 @@ from openpyxl.utils.dataframe import dataframe_to_rows
 import os
 import logging
 
-logging.basicConfig(filename="edt.log", level=logging.DEBUG,\
-      format='%(asctime)s -- %(name)s -- %(levelname)s -- %(message)s')
-
+#logging.basicConfig(filename="edt.log", level=logging.DEBUG,\
+      #format='%(asctime)s -- %(name)s -- %(levelname)s -- %(message)s')
 
 # pour afficher les DataFrame en entier:
 
@@ -22,9 +21,7 @@ pd.set_option("display.max_rows", None)
 #pd.reset_option(“max_columns”)
 #pd.reset_option(“max_rows”)
 
-
 plages_horraires = [111, 112, 113, 114, 121, 122, 123, 124, 211, 212, 213, 214, 221, 222, 223, 224, 311, 312, 313, 314, 411, 412, 413, 414, 421, 422, 423, 424, 511, 512, 513, 514, 521, 522, 523, 524, 611, 612, 613, 614]
-
 
 def opener(xlsx):
     
@@ -56,9 +53,6 @@ def opener(xlsx):
 
     return c
 
-
-
-
 def block_horraires(ut, ph=plages_horraires):
 
     r = []
@@ -73,8 +67,6 @@ def block_horraires(ut, ph=plages_horraires):
 
     return r
 
-
-
 def is_include(a, b):
 
     """a et b sont des listes"""
@@ -85,12 +77,6 @@ def is_include(a, b):
                 return True
 
     return False
-
-
-
-
-
-
 
 def prof_is_dispo2(c, n, *ph):
 
@@ -105,11 +91,7 @@ def prof_is_dispo2(c, n, *ph):
             return False
     
     return True
-
-
-
-
-
+      
 def hmat(c, classe, matiere, jour):
 
     """
@@ -137,9 +119,6 @@ def hmat(c, classe, matiere, jour):
 
     return counter
 
-
-
-
 def classe_is_dispo2(c, n , *ph):
 
     phc = list(set(c.loc[c.classe==n, "ph"].tolist()))
@@ -153,7 +132,6 @@ def classe_is_dispo2(c, n , *ph):
             return False
 
     return True
-
 
 def salle_is_dispo(c, n, *ph):
 
@@ -173,7 +151,6 @@ def salle_is_dispo(c, n, *ph):
 
     return True
 
-
 def regc_is_dispo(c, regc, *ph):
 
     """regc est une liste de classe en regroupement"""
@@ -189,7 +166,6 @@ def regc_is_dispo(c, regc, *ph):
             return False
 
     return True
-
 
 def regp_is_dispo(c, regp, *ph):
 
@@ -207,7 +183,6 @@ def regp_is_dispo(c, regp, *ph):
 
     return True
 
-
 def regs_is_dispo(c, regs, *ph):
 
     """regp est une liste de salle en regroupement"""
@@ -224,10 +199,6 @@ def regs_is_dispo(c, regs, *ph):
 
     return True
 
-
-
-
-
 def get_random_block(ut, ut2placed = True):
 
     """choisi des block seances de durée ut au hasard.
@@ -241,8 +212,6 @@ def get_random_block(ut, ut2placed = True):
 
     rb =  [json.loads(k) for k in random_block]
 
-
-
     if ut == 2 and ut2placed == True:
 
         for i in rb[:]: #on itere sur une copie de rb car on ne peut pas remove dans une boucle for directement sur la liste bouclée
@@ -252,8 +221,6 @@ def get_random_block(ut, ut2placed = True):
                 rb.remove(i)
             
     return rb
-
-
 
 def get_reg(c):
     
@@ -271,15 +238,11 @@ def get_reg(c):
 
     return r
 
-
-
-
 def testone(c, maxh=2):
 
     """
     teste un edt. maxh est le maximum d’heure par matiere et par jour, pour eviter d’avoir 3 x 1 h de Fr dans la meme journée par exemple
     """
-
 
     c.sort_values(by=['ut'], inplace=True, ascending=False)
 
@@ -349,14 +312,11 @@ def testone(c, maxh=2):
                 
                 break
 
-
         if c.loc[(c.id == seance.id), "ph"].values == "[0,0,0]":
 
             stop = True
 
             break
-
-
 
     if not stop:   
 
@@ -365,7 +325,6 @@ def testone(c, maxh=2):
             random_block = get_random_block(seance.ut)
 
             if seance.ph == "[0,0,0]" and type(seance.regroup) != type(1):
-
 
                 for j in random_block:
 
@@ -383,24 +342,15 @@ def testone(c, maxh=2):
 
                         c.loc[(c.id == seance.id), "ph"] = json.dumps(j)
                     
-                        break
-             
+                        break             
 
                 if c.loc[(c.id == seance.id), "ph"].values == "[0,0,0]":
                     
                     break
 
-
     c.sort_values(by=["id"], inplace=True)
 
     return c
-
-
-
-
-
-
-
 
 def xlmaker(n):
 
@@ -500,10 +450,6 @@ def xlmaker(n):
 
     wb.save("etab/{0}_EDT.xlsx".format(n))
 
-
-
-
-
 def testx(xlsx, n="mon_etab",  mh=2):
 
     t1 = time.time()
@@ -556,7 +502,6 @@ def testx(xlsx, n="mon_etab",  mh=2):
         s = c.iloc[i]
    
         p = json.loads(s.ph)
-
     
         for k in p:
         
@@ -603,14 +548,12 @@ def testx(xlsx, n="mon_etab",  mh=2):
 
         entp[i] = df
 
-
     for i in range(len(c)):
     
         s = c.iloc[i]
    
         p = json.loads(s.ph)
 
-    
         for k in p:
         
             col = str(k)[0]
@@ -647,7 +590,6 @@ def testx(xlsx, n="mon_etab",  mh=2):
 
     for i in ent.keys():
 
-
         ENT += "<p>{0}</p>".format(i)
 
         z = ent[i].to_html()
@@ -656,12 +598,9 @@ def testx(xlsx, n="mon_etab",  mh=2):
 
         ENT += "<div>{0}</div>".format(z)
 
-
     for i in entp.keys():
 
-
         ENT += "<p>{0}</p>".format(i)
-
 
         z = entp[i].to_html()
 
@@ -669,13 +608,10 @@ def testx(xlsx, n="mon_etab",  mh=2):
 
         ENT += "<div>{0}</div>".format(z)
 
-
     ENT = ENT.replace("\n", "")
-
    
     ENT = ENT.replace("\\n", "</br>")
  
-
     # creation du workbook excel
 
     with pd.ExcelWriter('etab/{0}-output.xlsx'.format(n)) as writer:  
@@ -697,7 +633,3 @@ def testx(xlsx, n="mon_etab",  mh=2):
     xlmaker(n)
 
     return (c, ent, entp, ENT, t2-t1)
-
-
-
-
